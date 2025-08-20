@@ -1,6 +1,6 @@
 const Product = require("../models/product");
 
-const getProducts = async (category, page = 1, itemsPerPage = 3) => {
+const getProducts = async (category, page = 1, itemsPerPage = 6) => {
   // create a container for filter
   let filter = {};
   if (category) {

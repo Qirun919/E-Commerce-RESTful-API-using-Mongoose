@@ -13,10 +13,11 @@ const {
 // import the Product model
 const Product = require("../models/product");
 
+// get all products
 router.get("/", async (req, res) => {
   const category = req.query.category;
-  const price = req.query.price;
-  const products = await getProducts(category, price);
+  const page = req.query.page;
+  const products = await getProducts(category, page);
   res.status(200).send(products);
 });
 
