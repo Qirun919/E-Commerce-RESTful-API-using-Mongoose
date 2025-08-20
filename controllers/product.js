@@ -1,41 +1,37 @@
 const Product = require("../models/product");
 
-async function getProducts(category, price) {
-  // create a empty container for filter
+const getProducts = async (category, page = 1, itemsPerPage = 3) => {
+  // create a container for filter
   let filter = {};
-  // if genre exists, then only add it into the filter container
   if (category) {
     filter.category = category;
   }
-  // if rating exists, then only add it into the filter container
-  if (price) {
-    filter.price = { $lt: price };
-  }
-  // load the Products data from mongoDB
-  const products = await Product.find(filter);
-  return products;
-}
+  // apply the filters
+  return await Product.find(filter)
+    .limit(itemsPerPage)
+    .skip((page - 1) * itemsPerPage)
+    .sort({ _id: -1 });
+};
 
-async function getProduct(id) {
-  // load the TVProduct data based on id
-  const product = await Product.findById(id);
-  return product;
-}
+const getProduct = async (id) => {
+  return await Product.findById(id);
+};
 
-async function addProduct(name, description, price, category) {
+const addProduct = async (name, description, price, category) => {
+  // create new product
   const newProduct = new Product({
     name,
     description,
     price,
     category,
   });
-  // save the new Product into MOngoDB
-  await newProduct.save(); // clicking the "save" button
+  // save into mongodb
+  await newProduct.save();
   return newProduct;
-}
+};
 
-async function updateProduct(id, name, description, price, category) {
-  return await Product.findByIdAndUpdate(
+const updateProduct = async (id, name, description, price, category) => {
+  const updatedProduct = await Product.findByIdAndUpdate(
     id,
     {
       name,
@@ -44,15 +40,15 @@ async function updateProduct(id, name, description, price, category) {
       category,
     },
     {
-      new: true, // return the updated data
+      new: true,
     }
   );
-}
+  return updatedProduct;
+};
 
-async function deleteProduct(id) {
-  // delete the movie
+const deleteProduct = async (id) => {
   return await Product.findByIdAndDelete(id);
-}
+};
 
 module.exports = {
   getProducts,
