@@ -9,7 +9,6 @@ const app = express();
 //setup cors policy
 app.use(cors());
 
-
 // setup a middleware to handle JSON request
 app.use(express.json());
 
@@ -32,9 +31,12 @@ app.get("/", (req, res) => {
 });
 
 // import all the routers
+// long method
 const productRouter = require("./routes/product");
 app.use("/products", productRouter);
 
+// short form
+app.use("/orders", require("./routes/order"));
 
 // start the express server
 app.listen(5919, () => {
