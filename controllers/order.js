@@ -38,8 +38,6 @@ const addNewOrder = async (
     }
   );
 
-  console.log(billplzResponse);
-
   // 2. extract id and billplz url from the billplzResponse
   const billplz_id = billplzResponse.data.id;
   const billplz_url = billplzResponse.data.url;
@@ -54,7 +52,7 @@ const addNewOrder = async (
   });
   await newOrder.save();
 
-  // 4. return the order with billplz url
+  // 4. return the order with the billplz url
   return {
     ...newOrder,
     billplz_url: billplz_url,

@@ -17,20 +17,21 @@ const getProduct = async (id) => {
   return await Product.findById(id);
 };
 
-const addProduct = async (name, description, price, category) => {
+const addProduct = async (name, description, price, category, image) => {
   // create new product
   const newProduct = new Product({
     name,
     description,
     price,
     category,
+    image,
   });
   // save into mongodb
   await newProduct.save();
   return newProduct;
 };
 
-const updateProduct = async (id, name, description, price, category) => {
+const updateProduct = async (id, name, description, price, category, image) => {
   const updatedProduct = await Product.findByIdAndUpdate(
     id,
     {
@@ -38,6 +39,7 @@ const updateProduct = async (id, name, description, price, category) => {
       description,
       price,
       category,
+      image,
     },
     {
       new: true,

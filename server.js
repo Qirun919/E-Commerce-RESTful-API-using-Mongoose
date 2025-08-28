@@ -41,6 +41,15 @@ app.use("/products", productRouter);
 // short form
 app.use("/orders", require("./routes/order"));
 
+app.use("/payment", require("./routes/payment"));
+
+app.use("/image", require("./routes/image"));
+
+app.use("/categories", require("./routes/category"));
+
+// set afolder as a static path
+app.use("/uploads", express.static("uploads"));
+
 // start the express server
 app.listen(5919, () => {
   console.log("server is running at http://localhost:5919");
