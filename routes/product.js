@@ -2,6 +2,8 @@ const express = require("express");
 //create a express router
 const router = express.Router();
 
+const { isAdmin } = require("../middleware/auth");
+
 const {
   getProducts,
   getProduct,
@@ -31,7 +33,8 @@ router.get("/:id", async (req, res) => {
   res.status(200).send(product);
 });
 
-router.post("/", async (req, res) => {
+// add new product
+router.post("/", isAdmin, async (req, res) => {
   try {
     const name = req.body.name;
     const description = req.body.description;
@@ -60,7 +63,7 @@ router.post("/", async (req, res) => {
 });
 
 // PUT /Products/68941fa294f0b166942289e0 - update Product
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAdmin, async (req, res) => {
   try {
     const id = req.params.id;
     const name = req.body.name;
@@ -85,7 +88,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE /Products/68941fa294f0b166942289e0 - delete Product
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isAdmin, async (req, res) => {
   try {
     const id = req.params.id;
     await deleteProduct(id);

@@ -8,6 +8,7 @@ const getProducts = async (category, page = 1, itemsPerPage = 6) => {
   }
   // apply the filters
   return await Product.find(filter)
+    .populate("category")
     .limit(itemsPerPage)
     .skip((page - 1) * itemsPerPage)
     .sort({ _id: -1 });

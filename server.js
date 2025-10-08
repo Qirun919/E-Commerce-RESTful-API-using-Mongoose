@@ -47,6 +47,8 @@ app.use("/image", require("./routes/image"));
 
 app.use("/categories", require("./routes/category"));
 
+app.use("/users", require("./routes/user"));
+
 // set afolder as a static path
 app.use("/uploads", express.static("uploads"));
 
