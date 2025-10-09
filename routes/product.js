@@ -14,7 +14,6 @@ const {
 
 // import the Product model
 const Product = require("../models/product");
-const { imageListItemClasses } = require("@mui/material");
 
 // get all products
 router.get("/", async (req, res) => {
